@@ -1,0 +1,145 @@
+\documentclass[oneside]{book}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+
+\title{Analysis Notes}
+\author{Murillo Vega, Gustavo \\ e-mail:
+\href{mailto:g.murillo24@info.uas.edu.mx}{g.murillo24@info.uas.edu.mx}}
+% \date{28 de Octubre 2024}
+
+\begin{document}
+
+\maketitle
+
+\chapter{Abstract Integration}
+Through the notes,
+$$\int f d\mu := \int_X f d\mu.$$
+
+And unless stated otherwise, $\mu$ is a positive measure.
+
+\section{Non-negative Lebesgue Integrals}
+
+\subsection{Lebesgue integral definition}
+Let $s:X\rightarrow [0,\infty]$ be a measurable simple
+function of the form
+$$s=\sum_{i=1}^{n}\alpha_i\chi_{A_i},$$
+where $\alpha_i$ are the values of $s(x)$ if $x\in A_i$.
+For measurable $E$, we define
+$$\int_E s\ d\mu = \sum\alpha_i\mu(A_i\cap E)$$.
+There is no problem with this definition, as measurable $s$
+implies measurable $A_i$ sets.
+
+For measurable $f:X\rightarrow [0,\infty]$ we define
+$$\int_E f d\mu = \sup \int s\ d\mu,$$
+where the supreme is taken from all $s$ such that
+$0\leq s\leq f$. It can be proven that there is always
+a monotonically increasing sequence of simple $s_n$ functions
+such that $\lim s_n = f$. So the supreme of non-negative
+$s$ simple functions can approximate $f$ well, so that
+the integral makes sense.
+
+\subsection{Theorem ``change of variables"}
+Suppose $f:X\rightarrow [0,\infty]$ is measurable.
+Let
+$$\varphi(E) = \int_E fd\mu$$
+for measurable $E$, then $\varphi$ is a measure on $X$.
+Furthermore if $g:X\rightarrow[0,\infty]$ is measurable,
+$$\int gd\varphi = \int fd\mu.$$
+
+
+\section{Real and complex integrals}
+
+\subsection{Definition}
+If $f$ is complex measurable in $X$, we say that $f\in L^1(X)$
+if
+$$\int |f| d\mu < \infty.$$
+Such $f$ are called Lebesgue integrable functions, or
+summable functions.
+
+\subsection{Complex integrals}
+If $f=u+iv$ is measurable and in $L^1(X)$, we define on 
+measurable $E$,
+$$\int_E fd\mu = \int_E u^+d\mu-\int_Eu^-d\mu +i\left(
+    \int_E v^+d\mu -\int_E v^-d\mu
+\right).$$
+
+\subsection{Extended real integrals}
+If $f:X\rightarrow [-\infty, \infty]$ is measurable,
+we define
+$$\int_E fd\mu = \int_E f^+d\mu - \int_E f^-d\mu,$$
+for measurable $E$, when one of the integrals on the right
+are non-infinite, since $\infty-\infty$ is not defined.
+
+\subsection{Theorem}\label{series}
+If $f_n: X\rightarrow [0,\infty]$ are measurable  and
+$$f=\sum f_n$$
+then
+$$\int fd\mu = \sum \int f_n d\mu.$$
+
+\subsection{Theorem}
+If $f\in L^1(X)$
+$$\left|\int fd\mu\right| = \int |f|d\mu.$$
+
+\subsection{Lebesgue's dominated convergence theorem}\label{dominated}
+If $f_n$ are complex measurable functions on $X$ such that
+$$f=\lim f_n$$
+converges in $X$, and there exists measurable complex $g$ in $X$
+such that
+$$|f_n|\leq g.$$
+Then $f\in L^1(X)$,
+$$\lim \int |f-f_n| d \mu,$$
+and
+$$\int f d\mu = \lim \int f_n d\mu.$$
+
+\subsection{Definition}
+We say that $P$ holds almost everywhere (a.e) in $E\subset X$, if
+$P$ holds in $E-N$ where $\mu(N)=0$.
+
+For example, we say $f=g$ a.e for measurable $f,g$
+on the measure space $X$ if they differ on a set of measure $0$.
+If this holds, for any measurable $E$ we have
+$$\int_E fd\mu =\int_E gd\mu.$$
+Notice that $f\sim g$ if $f=g$ a.e is an equivalence relation.
+
+\subsection{Definition}
+We extend the definition of measurable function: If $f$ defined on
+measurable $E\subset X$, we say $f$ is measurable in $X$,
+if $\mu(X-E)$ and $f^{-1}(V)\cap E$ is measurable
+for open $V$.
+
+If we care about integrating this function over $X$,
+$f$ need not be defined on $X-E$ as $\mu(X-E)=0$ thus
+$\int_X f d\mu = \int_E f d\mu$ no matter what $f$ is defined to
+be in $X-E$.
+
+\subsection{Theorem}
+Let $f_n$ be complex measurable functions defined a.e
+in $X$ such that
+$$\sum \int |f_n| d\mu < \infty.$$
+Then
+$$f=\sum f_n,$$
+converges a.e in $X$, $f\in L^1(X)$, and
+$$\int f d\mu = \sum \int f_n d\mu.$$
+
+PROOF: Let $S=\{x: f_n(x) \text{ is defined }\forall n\}$, so that
+$\mu(X- S)=0$. Defining $\varphi:S\rightarrow C$ by
+$\varphi = \sum |f_n|$, then by \ref{series},
+\begin{equation}\label{varphiinfty}
+    \int_S\varphi d\mu = \sum \int_S |f_n| d\mu < \infty.
+\end{equation}
+\emph{Let $E=\{x\in S:\varphi(x) < \infty\}$, it follows that
+$\mu(X-E)=0$ by \ref{varphiinfty}.}
+
+Proof: Let $A=X-S$ and $B=X-E$, $B$ is the disjoint union of
+$A\cap B=A$ and $B-A$, then $\mu(B)=\mu(A)+\mu(B-A)$.
+As $B-A=(X-E)-(X-S)=S-E$ which are the points $x\in S$ on which
+$\varphi(x)=\infty$, $\mu(B-A)=0$ as \ref{varphiinfty} must hold.
+So we have proven $\mu(X-E)=\mu(X-S)=0$.\hfill //
+
+
+\end{document}
